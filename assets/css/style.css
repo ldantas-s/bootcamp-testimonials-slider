@@ -19,11 +19,6 @@ img { width: 100%; }
   background-repeat: no-repeat;
   overflow: hidden;
 }
-.main-testimonialsList {
-  position: relative;
-  min-width: 100%;
-  display: flex;
-}
 .testimonial {
   flex-shrink: 0;
   width: 100%;
@@ -33,42 +28,72 @@ img { width: 100%; }
   background-repeat: no-repeat;
   background-position-x: -17px;
   transition: transform 100ms linear;
-  /* transform: translateX(-97vw); */
 }
+/* testimonial slider */
 .testimonial-slider {
   position: relative;
   padding: 0 25px;
 }
-.testimonial-slider__image {
+.testimonial-slider-images {
+  display: flex;
+  position: relative;
+}
+.testimonial-slider-images__image {
   border-radius: 5px;
   box-shadow: 5px 5px 20px rgba(0,0,0,.3);
+  transition: transform 100ms linear;
+}
+.testimonial-slider-images__image:not(:first-child) {
+  position: absolute;
+  left: 97vw;
 }
 .testimonial-slider-controllers {
   position: absolute;
   left: 50%;
-  bottom: -10px;
+  bottom: -18px;
   transform: translateX(-50%);
   width: 80px;
   height: 40px;
   border-radius: 20px;
+  box-shadow: 2px 2px 4px rgba(0,0,0,.3);
   background: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
   overflow: hidden;
   z-index: 10;
+  transition: transform 100ms linear;
+}
+.testimonial-slider-controllers:hover {
+  transform: translateX(-50%) scale(1.1);
+  transition: transform 100ms cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  box-shadow: 2px 2px 10px rgba(0,0,0,.2);
+
 }
 .testimonial-slider-controllers--position {
   display: flex;
   width: 40px;
   padding: 15px;
-
 }
-/* ! Implementar efeitos dos controladores de slider */
-.testimonial-slider-controllers-left {}
-.testimonial-slider-controllers-right {}
+.testimonial-slider-controllers-left,
+.testimonial-slider-controllers-right {
+  cursor: pointer;
+}
+.testimonial-slider-controllers-left:active {
+  transform: translateX(-3px);
+}
+.testimonial-slider-controllers-right:active {
+  transform: translateX(3px);
+}
 
+
+/* Testimonial content */
+.testimonial-contentList {
+  position: relative;
+  z-index: 5;
+}
 .testimonial-content {
+  height: 100%;
   margin-top: 55px;
   padding-top: 15px;
   text-align: center;
@@ -76,6 +101,13 @@ img { width: 100%; }
   background: url('../images/pattern-quotes.svg') no-repeat;
   background-size: 20%;
   background-position: top center;
+  transition: opacity 200ms linear, transform 100ms linear;
+}
+.testimonial-content:not(:first-child) {
+  position: absolute;
+  top: -55px;
+  transform: scale(.9);
+  opacity: 0;
 }
 .testimonial-content__paragraph {
   font-weight: 300;
@@ -119,11 +151,17 @@ img { width: 100%; }
   .testimonial-slider {
     z-index: 4;
   }
-  .testimonial-slider__image {
+  .testimonial-slider-images__image {
+    
+  }
+  .testimonial-slider-images__image {
     width: 500px;
   }
   .testimonial-slider-controllers {
     left: 20%;
+  }
+  .testimonial-content:not(:first-child) {
+    top: 0;
   }
   .testimonial-content {
     text-align: initial;
@@ -131,7 +169,6 @@ img { width: 100%; }
     align-items: center;
     grid-template-columns: 1fr 1fr;
     background-position: 20% 18%;
-    z-index: 5;
   }
   .testimonial-content__paragraph {
     line-height: initial;
@@ -142,9 +179,11 @@ img { width: 100%; }
   }
   .testimonial-content-authorInfo {
     display: grid;
-    grid-template-columns: repeat(2, 140px);
+    grid-template-columns: 140px 220px;
+    align-items: flex-end;
   }
   .testimonial-content-authorInfo__career {
     font-weight: 500;
+    font-size: .5rem;
   }
 }
